@@ -1,0 +1,69 @@
+version: '3'
+services:
+  databasescon:
+    build: ./Database/
+    image: databaseimg
+    ports:
+      - "3306:3306"
+    networks:
+      - stydent-network   
+    volumes:
+      - ./Database:/docker-entrypoint-inidb.d/
+      #- data:/var/lib/mysql
+    container_name: databasescon
+    environment:
+      - MYSQL_ROOT_PASSWORD=stydent
+      - TZ=Asia/Bangkok
+    restart: on-failure      
+  backendcon:
+    build: ./Backend/
+    image: backendimg
+    ports:
+      - "8080:8080"
+    networks:
+      - stydent-network    
+    links:
+      - databasescon    
+    restart: on-failure
+    environment:
+      - MYSQL_PATH=databasescon
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=stydent
+      - TZ=Asia/Bangkok
+    container_name: backendcon      
+  frontendcon:
+    image: frontendimg
+    build: ./Frontend
+    restart: unless-stopped
+    volumes:
+      - ./Frontend/:/var/local/app:cached
+      - ./Frontend/config/nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
+        #- ./Frontend/config/nginx/Proxy.conf:/etc/nginx/conf.d/Proxy.conf:cached  
+        ##      - /etc/ssl:/etc/ssl
+    container_name: frontendcon
+    ports:
+      - "3000:80"
+    networks:
+      - stydent-network
+  proxy_nginx_frontend:
+    image: nginx:1.19.1
+    restart: unless-stopped
+    volumes:
+      - ./Frontend/config/nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
+      - ./Frontend/config/nginx/Proxy.conf:/etc/nginx/conf.d/Proxy.conf:cached
+      - ./Frontend/logs/nginx:/var/log/nginx:cached
+        #- /etc/ssl:/etc/ssl
+        #- /etc/ssl/ip21ssi3.crt:/etc/ssl/ip21ssi3.crt:cached
+        #- /etc/ssl/ip21ssi3.key:/etc/ssl/ip21ssi3.key:cached
+    container_name: proxy_nginx_frontend
+    ports:
+      - "80:80"
+        #- "443:443"
+    depends_on:
+      - frontendcon
+    networks:
+      - stydent-network
+networks:
+  stydent-network:
+    external:
+     name: stydent-network

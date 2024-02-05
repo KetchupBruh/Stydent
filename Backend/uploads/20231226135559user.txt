@@ -1,0 +1,27 @@
+@Slf4j
+@Getter
+@Setter
+@Entity
+@Table(name = "user")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser", nullable = false)
+    private Integer id;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "userName", nullable = false, length = 100)
+    private String username;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "userEmail", nullable = false, length = 100)
+    private String email;
+
+    @Size(max = 20)
+    @NotNull
+    @Column(name = "role", nullable = false, length = 20)
+    private String role;
+
+}
