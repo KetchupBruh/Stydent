@@ -15,17 +15,17 @@ const hideSuccess = () => {
       v-if="showSuccess"
       :class="{ 'success-background': showSuccess }"
       id="toast-success" 
-      class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 z-500"
+      class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow z-500"
       role="alert"
     >
       <div
-        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-700 dark:text-green-200"
+        class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-700 rounded-lg"
       >
         <svg
           class="w-5 h-5"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
+          fill="white"
           viewBox="0 0 20 20"
         >
           <path

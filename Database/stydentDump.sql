@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `stydent` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `stydent`;
--- MySQL dump 10.13  Distrib 8.0.26, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
 -- Host: localhost    Database: stydent
 -- ------------------------------------------------------
--- Server version	8.0.26
+-- Server version	8.0.28
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -73,7 +73,7 @@ DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
-  `idComment` int NOT NULL,
+  `idComment` int NOT NULL AUTO_INCREMENT,
   `emailOwner` varchar(100) NOT NULL,
   `commentDetail` varchar(1000) NOT NULL,
   `commentCreatedOn` timestamp NOT NULL,
@@ -135,6 +135,7 @@ DROP TABLE IF EXISTS `course_file`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `course_file` (
   `idCourse_File` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL,
   `fileDescription` varchar(500) NOT NULL,
   `fileCreatedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `fileUpload` varchar(100) NOT NULL,
@@ -193,7 +194,11 @@ CREATE TABLE `review` (
   `idReview` int NOT NULL AUTO_INCREMENT,
   `gradesReceived` varchar(2) NOT NULL,
   `instructorName` varchar(100) NOT NULL,
-  `rating` int NOT NULL,
+  `ratingOfInteresting` int NOT NULL,
+  `ratingOfGroupWork` int NOT NULL,
+  `ratingOfGradeCollect` int NOT NULL,
+  `ratingOfEasyExam` int NOT NULL,
+  `ratingOfIndividualWork` int NOT NULL,
   `work` varchar(500) NOT NULL,
   `reviewDescription` varchar(1000) NOT NULL,
   `reviewCreatedOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -211,7 +216,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'A','Saim',4,'wasd','dasd','2024-01-21 16:30:30','std01@st.sit.kmutt.ac.th',1);
+INSERT INTO `review` VALUES (1,'A','Saim',4,3,5,1,2,'wasd','dasd','2024-02-06 10:09:51','std01@st.sit.kmutt.ac.th',1);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +259,7 @@ CREATE TABLE `user` (
   `userEmail` varchar(100) NOT NULL,
   `role` enum('staff_group','st_group') NOT NULL,
   PRIMARY KEY (`idUser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +268,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'std01','std01@st.sit.kmutt.ac.th','st_group'),(2,'stf01','stf01@sit.kmutt.ac.th','staff_group');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -276,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-22  9:54:56
+-- Dump completed on 2024-02-06 17:10:13

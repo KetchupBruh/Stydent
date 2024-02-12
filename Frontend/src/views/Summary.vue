@@ -493,9 +493,6 @@ const Login = () => appRouter.push({ name: "login" });
   font-size: 14px;
   font-weight: 500;
 }
-.button-2 {
-  /* background-color: #697a98; */
-}
 
 .button-search {
   background-color: #4675c0;

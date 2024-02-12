@@ -960,6 +960,8 @@ const Login = () => appRouter.push({ name: "login" });
           </div>
 
           <p class="line-comment"></p>
+          <form @submit.prevent="sendComment(index, summary.id)">
+
           <div class="box-comment">
             <input
               placeholder="แสดงความคิดเห็น ..."
@@ -970,7 +972,6 @@ const Login = () => appRouter.push({ name: "login" });
 
             <button
               class="button-sendcomment"
-              @click="sendComment(index, summary.id)"
             >
               <svg
                 id="Send"
@@ -989,6 +990,7 @@ const Login = () => appRouter.push({ name: "login" });
               </svg>
             </button>
           </div>
+          </form>
         </div>
 
         <div class="pagination">

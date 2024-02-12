@@ -932,6 +932,8 @@ const Login = () => appRouter.push({ name: "login" });
 
         <div class="box-comment-1" v-if="role === 'st_group'">
           <p class="line-comment"></p>
+          
+          <form @submit.prevent="sendComment(index, summary.idCourse_File)">
           <div class="box-comment">
             <input
               placeholder="แสดงความคิดเห็น . . ."
@@ -941,7 +943,6 @@ const Login = () => appRouter.push({ name: "login" });
             />
             <button
               class="button-sendcomment"
-              @click="sendComment(index, summary.idCourse_File)"
             >
               <svg
                 id="Send"
@@ -960,6 +961,8 @@ const Login = () => appRouter.push({ name: "login" });
               </svg>
             </button>
           </div>
+        </form>
+        
         </div>
       </div>
 
